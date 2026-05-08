@@ -8,3 +8,4 @@ use App\Http\Controllers\Api\v1\TicketController;
 
 // ensure that the user is authenticated
 Route::middleware('auth:sanctum')->apiResource('tickets', TicketController::class);
+
