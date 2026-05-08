@@ -9,4 +9,9 @@ class Ticket extends Model
 {
     /** @use HasFactory<\Database\Factories\TicketFactory> */
     use HasFactory;
+
+    public function author()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }
