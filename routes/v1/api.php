@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\v1\TicketController;
+use App\Http\Controllers\Api\v1\UsersController;
 
 
 // api/v1/tickets
@@ -9,3 +10,4 @@ use App\Http\Controllers\Api\v1\TicketController;
 // ensure that the user is authenticated
 Route::middleware('auth:sanctum')->apiResource('tickets', TicketController::class);
 
+Route::middleware('auth:sanctum')->apiResource('users', UsersController::class);
