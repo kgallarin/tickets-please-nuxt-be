@@ -7,7 +7,6 @@ use App\Http\Requests\Api\v1\StoreTicketRequest;
 use App\Http\Requests\Api\v1\UpdateTicketRequest;
 use App\Http\Resources\v1\TicketResource;
 use App\Models\Ticket;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class TicketController extends ApiController

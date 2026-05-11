@@ -2,8 +2,6 @@
 
 namespace App\Http\Filters\Api\v1;
 
-use App\Http\Filters\Api\v1\QueryFilter;
-
 class TicketFilter extends QueryFilter {
 
     public function include($value) {
