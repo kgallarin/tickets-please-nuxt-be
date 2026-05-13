@@ -2,10 +2,10 @@
 
 namespace App\Http\Filters\Api\v1;
 
-class TicketFilter extends QueryFilter {
+class AuthorFilter extends QueryFilter {
     protected $sortable = [
-        'title',
-        'status',
+        'name',
+        'email',
         'updated_at',
         'createdAt' => 'created_at',
         'updatedAt' => 'updated_at'
@@ -14,14 +14,23 @@ class TicketFilter extends QueryFilter {
     public function include($value) {
         return $this->builder->with($value);
     }
-    public function status($value) {
-        // return $this->builder->where('status', $value);
-        return $this->builder->whereIn('status', explode(',', $value));
+
+    // query set of ids where we can use the database column: whereIn('id')
+    public function id($value) {
+        // return $this->builder->where('id', $value);
+        return $this->builder->whereIn('id', explode(',', $value));
     }
 
-    public function title($value) {
+    // we can filter based upon a partial email
+    public function email($value) {
         $likeStr = str_replace('*', '%', $value);
-        return $this->builder->where('title', 'like', $likeStr);
+        return $this->builder->where('email', 'like', $likeStr);
+    }
+
+    // same above for name
+    public function name($value) {
+        $likeStr = str_replace('*', '%', $value);
+        return $this->builder->where('name', 'like', $likeStr);
     }
 
     public function updatedAt($value) {
