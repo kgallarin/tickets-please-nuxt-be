@@ -40,13 +40,13 @@ class TicketController extends ApiController
     /**
      * Display the specified resource.
      */
-    public function show(Ticket $ticket): TicketResource
+    public function show(Ticket $ticket, TicketFilter $filter): TicketResource
     {
-        if($this->include('author')) {
-            return TicketResource::make($ticket->load('author'));
-        }
+//        if($filter->include('author')) {
+//            return TicketResource::make($ticket->load('author'));
+//        }
 
-        return TicketResource::make($ticket);
+        return TicketResource::make(Ticket::filter($filter)->make($ticket->id));
     }
 
     /**

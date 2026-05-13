@@ -19,7 +19,7 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
 
-            $this->mergeWhen($request->routeIs('users.*'), [
+            $this->mergeWhen($request->routeIs('authors.*'), [
                 'emailVerifiedAt' => $this->email_verified_at->format('Y-m-d H:i:s'),
                 'updatedAt' => $this->updated_at->format('Y-m-d H:i:s'),
                 'createdAt' => $this->created_at->format('Y-m-d H:i:s'),
@@ -28,24 +28,24 @@ class UserResource extends JsonResource
             'attributes' => [
                 'email' => $this->email,
                 'emailVerifiedAt' => $this->when(
-                    $request->routeIs('users.*'),
+                    $request->routeIs('authors.*'),
                     $this->email_verified_at->format('Y-m-d H:i:s')
                 ),
 
                 'updatedAt' => $this->when(
-                    $request->routeIs('users.*'),
+                    $request->routeIs('authors.*'),
                     $this->updated_at->format('Y-m-d H:i:s')
                 ),
 
                 'createdAt' => $this->when(
-                    $request->routeIs('users.*'),
+                    $request->routeIs('authors.*'),
                     $this->created_at->format('Y-m-d H:i:s')
                 ),
             ],
 
             'includes' => TicketResource::collection($this->whenLoaded('tickets')),
             'links' => [
-                'self' => route('api.v1.users.show', $this->id),
+                'self' => route('api.v1.authors.show', $this->id),
             ]
         ];
     }

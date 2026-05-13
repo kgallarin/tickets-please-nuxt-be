@@ -20,11 +20,11 @@ class UsersController extends ApiController
 
     }
 
-    public function show(User $user) {
+    public function show(User $author) {
         if($this->include('tickets')) {
-            return UserResource::make($user->load('tickets'));
+            return UserResource::make($author->load('tickets'));
         }
 
-        return UserResource::make($user);
+        return UserResource::make($author);
     }
 }
