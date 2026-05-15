@@ -67,13 +67,21 @@ class TicketController extends ApiController
     /**
      * Display the specified resource.
      */
-    public function show(Ticket $ticket, TicketFilter $filter): TicketResource
+    public function show($ticket_id,TicketFilter $filter)
     {
 //        if($filter->include('author')) {
 //            return TicketResource::make($ticket->load('author'));
 //        }
 
-        return TicketResource::make(Ticket::filter($filter)->make($ticket->id));
+        try {
+            $ticket = Ticket::filter($filter)->findOrFail($ticket_id);
+
+            return TicketResource::make($ticket);
+        } catch (ModelNotFoundException $e) {
+            return $this->error('Ticket cannot found', 404);
+        }
+
+
     }
 
     /**
@@ -96,8 +104,19 @@ class TicketController extends ApiController
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Ticket $ticket): void
+    public function destroy($ticket_id)
     {
-        //
+        // 1. simplest way of deleting the ticket, this returns errors when ticket does not exist
+        // $ticket->delete();
+
+        // on security over obscurity way, we want to hide as much of our applictions working as possible
+        try {
+            $ticket = Ticket::findOrFail($ticket_id);
+            $ticket->delete();
+
+            return $this->success('Ticket successfully deleted', 200);
+        } catch (ModelNotFoundException $e) {
+            return $this->error('Ticket not found', 404);
+        }
     }
 }
